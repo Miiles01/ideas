@@ -13,14 +13,16 @@ Este repositorio actúa como una **biblioteca de referencias de diseño y códig
 
 Este índice está diseñado para que una IA localice rápidamente el código adecuado para la necesidad del proyecto. Se actualizará cada vez que se agregue una nueva referencia.
 
-### 🧩 Componentes (UI Elements)
+### 🧩 Moléculas (Componentes Simples)
+*(Ej: Botones, Loaders, Inputs, Badges. Vacío por ahora)*
 
+### 🏗️ Organismos (Componentes Complejos)
 - **Menú MOSS (Sidebar animado)**: [`components/menu-moss-demo.html`](components/menu-moss-demo.html)
-  - **Descripción**: Un menú lateral con estilo MOSS (moderno, animaciones suaves `cubic-bezier`, fondo overlay oscuro). Botón hamburguesa circular fijo. Usa tipografía Manrope.
-  - **Tags**: Sidebar, Hamburger Menu, Vanilla JS, CSS Animations.
+  - **Descripción**: Un menú lateral completo estilo MOSS. Animaciones suaves `cubic-bezier`, overlay oscuro y botón hamburguesa circular fijo. Tipografía Manrope.
+  - **Tags**: Sidebar, Menu, Vanilla JS, CSS Animations.
 
-### 📄 Plantillas (Templates)
-*(Vacío por ahora. Aquí registraremos los templates desde tus descargas)*
+### 📄 Plantillas (Templates & Pages)
+*(Ej: Sitios completos, Landing Pages. Vacío por ahora)*
 
 ---
 **Instrucción para IAs:** Al generar código para un nuevo proyecto, SIEMPRE consulta `DESIGN_RULES.md` y revisa este `INDEX.md` para extraer y reutilizar los componentes aprobados que se encuentran en este repositorio.
