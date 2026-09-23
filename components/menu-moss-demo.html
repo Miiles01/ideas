@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menú estilo MOSS</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --dark:#0d0d11; --light:#fff; --ease:cubic-bezier(.76,0,.24,1); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:Manrope,sans-serif; background:#e9e9ec; min-height:100vh; }
+
+  /* 1. Botón hamburguesa */
+  .burger { position:fixed; top:24px; right:24px; z-index:30; width:64px; height:64px;
+    border-radius:50%; border:0; background:var(--light); cursor:pointer;
+    box-shadow:0 4px 20px rgba(0,0,0,.12); }
+  .burger span { position:absolute; left:22px; width:20px; height:2px; background:var(--dark);
+    transition:transform .5s var(--ease), top .5s var(--ease); }
+  .burger span:nth-child(1){ top:27px } .burger span:nth-child(2){ top:35px }
+  .open .burger span:nth-child(1){ top:31px; transform:rotate(45deg) }
+  .open .burger span:nth-child(2){ top:31px; transform:rotate(-45deg) }
+
+  /* 2. Overlay que oscurece la página */
+  .overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); opacity:0; pointer-events:none;
+    transition:opacity .6s var(--ease); z-index:10; }
+  .open .overlay { opacity:1; pointer-events:auto; }
+
+  /* 3. Panel: un círculo gigante detrás le da el borde curvo al abrir */
+  .panel { position:fixed; top:0; right:0; height:100vh; width:min(420px,100vw); z-index:20;
+    transform:translateX(100%); transition:transform .8s var(--ease); }
+  .open .panel { transform:translateX(0); }
+  .panel::before { content:""; position:absolute; top:50%; left:0; width:200%; height:150%;
+    background:var(--dark); border-radius:50%; transform:translate(-8%,-50%);
+    transition:border-radius .8s var(--ease); z-index:-1; }
+  .open .panel::before { border-radius:0; transform:translate(0,-50%); }
+
+  .links { position:absolute; top:22%; left:48px; right:0; list-style:none; }
+  .links li { overflow:hidden; }
+  /* 4. Entrada escalonada de cada link */
+  .item { position:relative; display:block; color:var(--light); text-decoration:none;
+    font-size:44px; line-height:1.2; padding-right:48px;
+    transform:translateY(110%); transition:transform .7s var(--ease); }
+  .open .item { transform:translateY(0); transition-delay:calc(.25s + var(--i) * .07s); }
+
+  /* 5. Hover: banda blanca que sube + marquesina */
+  .band { position:absolute; inset:0; background:var(--light); transform:translateY(101%);
+    transition:transform .45s var(--ease); display:flex; align-items:center; overflow:hidden; }
+  .item:hover .band, .item:focus-visible .band { transform:translateY(0); }
+  .track { display:flex; white-space:nowrap; color:var(--dark);
+    animation:marquee 6s linear infinite; }
+  .track span { padding-right:.6em; }
+  @keyframes marquee { to { transform:translateX(-50%); } }
+
+  .social { position:absolute; bottom:40px; left:48px; color:var(--light); font-size:11px;
+    letter-spacing:.08em; opacity:0; transition:opacity .5s .6s; }
+  .open .social { opacity:1; }
+  @media (prefers-reduced-motion:reduce){ *{ transition:none!important; animation:none!important } }
+</style>
+</head>
+<body>
+  <button class="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  <div class="overlay"></div>
+  <nav class="panel" aria-hidden="true">
+    <ul class="links">
+      <li><a class="item" href="#" style="--i:0" data-label="Home">Home</a></li>
+      <li><a class="item" href="#" style="--i:1" data-label="About">About</a></li>
+      <li><a class="item" href="#" style="--i:2" data-label="Work">Work</a></li>
+      <li><a class="item" href="#" style="--i:3" data-label="Notes">Notes</a></li>
+      <li><a class="item" href="#" style="--i:4" data-label="Contact">Contact</a></li>
+    </ul>
+    <p class="social">INSTAGRAM • TWITTER • DRIBBBLE</p>
+  </nav>
+
+<script>
+  // Genera la marquesina: el texto repetido dos veces para que el loop sea continuo
+  document.querySelectorAll('.item').forEach(a => {
+    const word = a.dataset.label, half = Array(4).fill(`<span>${word}</span>`).join('');
+    a.insertAdjacentHTML('beforeend', `<span class="band"><span class="track">${half}${half}</span></span>`);
+  });
+
+  // Abrir / cerrar: una sola clase en <body> controla todas las animaciones
+  const btn = document.querySelector('.burger'), panel = document.querySelector('.panel');
+  const toggle = force => {
+    const open = document.body.classList.toggle('open', force);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    panel.setAttribute('aria-hidden', !open);
+  };
+  btn.addEventListener('click', () => toggle());
+  document.querySelector('.overlay').addEventListener('click', () => toggle(false));
+  document.addEventListener('keydown', e => e.key === 'Escape' && toggle(false));
+</script>
+</body>
+</html>
