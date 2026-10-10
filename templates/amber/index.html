@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marca · Plantilla Amber</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Hanken+Grotesk:wght@300;400;500;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- Preloader: contador + cortina -->
+  <div class="pre" aria-hidden="true">
+    <span class="pre-brand">Marca</span>
+    <span class="pre-count">0</span>
+  </div>
+
+  <!-- Barra fija: se oculta al bajar, vuelve al subir. Escritorio = enlaces; móvil = botón + hoja -->
+  <header class="bar">
+    <a class="brand" href="#top">Marca</a>
+    <nav class="nav" aria-label="Principal">
+      <a class="roll" href="#nosotros"><span>Nosotros</span><span>Nosotros</span></a>
+      <a class="roll" href="#menu"><span>Menú</span><span>Menú</span></a>
+      <a class="roll" href="#contacto"><span>Contacto</span><span>Contacto</span></a>
+    </nav>
+    <span class="copy">© 2026</span>
+    <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="sheet"><span></span><span></span></button>
+  </header>
+
+  <div class="sheet" id="sheet" aria-hidden="true">
+    <nav aria-label="Móvil">
+      <a href="#nosotros" style="--i:0"><span>Nosotros</span></a>
+      <a href="#menu" style="--i:1"><span>Menú</span></a>
+      <a href="#valores" style="--i:2"><span>Valores</span></a>
+      <a href="#contacto" style="--i:3"><span>Contacto</span></a>
+    </nav>
+    <p class="sheet-foot">hola@marca.com<br>© 2026</p>
+  </div>
+
+  <!-- 01 · HERO: imagen a pantalla completa, titular, wordmark gigante en marquee -->
+  <header class="hero" id="top">
+    <div class="media" data-img="hero"><div class="media-fill"></div></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-mid container">
+      <span class="label">001</span>
+      <div class="hero-sub">
+        <h1 class="lines" data-split>
+          <span>Una mezcla contemporánea</span>
+          <span>de tradiciones culinarias</span>
+          <span>inspirada en el norte</span>
+        </h1>
+        <a class="btn glass" href="#contacto">Reservar mesa</a>
+      </div>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Marca</span><span>Marca</span><span>Marca</span><span>Marca</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 02 · INTRO: párrafo grande que se revela al hacer scroll + lista de valores -->
+    <section class="section" id="nosotros">
+      <div class="container">
+        <div class="intro">
+          <span class="label">Intro</span>
+          <p class="display reveal">Nuestro restaurante ofrece una experiencia única que mezcla los elementos ricos y terrosos de la cocina nórdica con las especias y técnicas intensas de la gastronomía asiática.</p>
+        </div>
+
+        <ul class="text-list">
+          <li class="text-item">
+            <div class="label-col"><span class="label">Valor</span><span class="label">(001)</span></div>
+            <div class="text-col">
+              <h3 class="h-sm">Más allá de las fronteras</h3>
+              <p class="muted">Creemos que la buena comida trasciende fronteras. Cada plato cuenta una historia que resuena con la pureza del paisaje nórdico y el encanto del oriente.</p>
+            </div>
+          </li>
+          <li class="text-item">
+            <div class="label-col"><span class="label">Valor</span><span class="label">(002)</span></div>
+            <div class="text-col">
+              <h3 class="h-sm">Cada bocado es una fusión</h3>
+              <p class="muted">Un viaje culinario inolvidable donde cada bocado une tradición e innovación, hecho con pasión y presentado con elegancia.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Imagen a todo el ancho con numeral + miniatura -->
+    <figure class="bleed" data-img="bleed-1">
+      <div class="media-fill"></div>
+      <div class="bleed-overlay"></div>
+      <figcaption class="bleed-cap container">
+        <h2 class="display-l">Inspirado en la tradición,<br>hecho con precisión,<br>servido con pasión</h2>
+        <span class="num">02</span>
+        <div class="thumb" data-img="thumb-1"><div class="media-fill"></div></div>
+      </figcaption>
+    </figure>
+
+    <!-- 03 · SPLIT: texto + imagen 2:3, dos bloques alternados -->
+    <section class="section">
+      <div class="container">
+        <div class="split">
+          <div class="split-text">
+            <h2 class="h-md">No solo servimos comida: creamos experiencias</h2>
+            <h3 class="h-sm">Una colección cuidadosamente curada</h3>
+            <p class="muted">Nuestra carta reúne lo mejor de las tradiciones nórdica y asiática, con ingredientes locales y sostenibles combinados con especias vibrantes.</p>
+            <a class="btn dark roll-btn" href="#menu"><span>Ver el menú</span></a>
+          </div>
+          <div class="ratio-23 split-img" data-img="split-1"><div class="media-fill"></div></div>
+        </div>
+
+        <div class="split split--rev">
+          <div class="split-text">
+            <h2 class="h-md">Te invitamos a explorar un mundo de sabores</h2>
+            <h3 class="h-sm">Una invitación a descubrir</h3>
+            <p class="muted">Nuestros chefs empujan los límites de la cocina tradicional con un menú que sorprende en cada bocado.</p>
+            <a class="btn dark roll-btn" href="#valores"><span>Ver valores</span></a>
+          </div>
+          <div class="ratio-23 split-img" data-img="split-2"><div class="media-fill"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <figure class="bleed bleed--short" data-img="bleed-2">
+      <div class="media-fill"></div>
+      <div class="bleed-overlay"></div>
+      <figcaption class="bleed-cap container">
+        <h2 class="display-l">Lo simple del norte<br>con técnicas de oriente</h2>
+        <span class="num">03</span>
+      </figcaption>
+    </figure>
+
+    <!-- 04 · MENÚ: título XL partido + tabs + lista de platos -->
+    <section class="section" id="menu">
+      <div class="container">
+        <h2 class="xl-title" aria-label="Nuestro Menú"><span>Nuestro</span><span>Menú</span></h2>
+
+        <div class="intro">
+          <span class="label">Intro</span>
+          <p class="display reveal">Una selección de entradas, platos fuertes y postres, con ingredientes de temporada.</p>
+        </div>
+
+        <div class="tabs" data-tabs>
+          <div class="tabs-menu" role="tablist">
+            <button class="tab is-on" role="tab" data-tab="a">Entradas</button>
+            <button class="tab" role="tab" data-tab="b">Platos fuertes</button>
+            <button class="tab" role="tab" data-tab="c">Postres</button>
+          </div>
+
+          <div class="pane is-on" data-pane="a">
+            <article class="dish"><div class="dish-head"><h4>Tartar de salmón ahumado</h4><span>$18</span></div><p class="muted">Salmón ahumado, aguacate, crème fraîche con wasabi, rábano encurtido, yuzu.</p></article>
+            <article class="dish"><div class="dish-head"><h4>Vieiras glaseadas con miso</h4><span>$22</span></div><p class="muted">Vieiras selladas, glaseado de miso, hinojo, manzana, aceite de eneldo.</p></article>
+            <article class="dish"><div class="dish-head"><h4>Tataki de reno</h4><span>$20</span></div><p class="muted">Lomo sellado, marinada de soya y ajonjolí, salsa de arándano, hongos encurtidos.</p></article>
+          </div>
+          <div class="pane" data-pane="b">
+            <article class="dish"><div class="dish-head"><h4>Plato fuerte uno</h4><span>$34</span></div><p class="muted">Descripción breve del plato con sus ingredientes principales.</p></article>
+            <article class="dish"><div class="dish-head"><h4>Plato fuerte dos</h4><span>$38</span></div><p class="muted">Descripción breve del plato con sus ingredientes principales.</p></article>
+          </div>
+          <div class="pane" data-pane="c">
+            <article class="dish"><div class="dish-head"><h4>Postre uno</h4><span>$12</span></div><p class="muted">Descripción breve del postre con sus ingredientes principales.</p></article>
+            <article class="dish"><div class="dish-head"><h4>Postre dos</h4><span>$14</span></div><p class="muted">Descripción breve del postre con sus ingredientes principales.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <figure class="bleed bleed--short" data-img="bleed-3">
+      <div class="media-fill"></div>
+      <div class="bleed-overlay"></div>
+      <figcaption class="bleed-cap container">
+        <h2 class="display-l">Te invitamos a explorar<br>un mundo nuevo<br>de sabores</h2>
+        <span class="num">04</span>
+        <div class="thumb" data-img="thumb-2"><div class="media-fill"></div></div>
+      </figcaption>
+    </figure>
+
+    <!-- 05 · VALORES -->
+    <section class="section" id="valores">
+      <div class="container">
+        <h2 class="xl-title"><span>Nuestros</span><span>Valores</span></h2>
+        <h3 class="h-md center">Los valores con los que vivimos</h3>
+
+        <ul class="text-list">
+          <li class="text-item"><div class="label-col"><span class="label">Tradición</span></div><div class="text-col"><p class="display-s reveal">Honramos las tradiciones culinarias de ambas culturas sin dejar de innovar.</p></div></li>
+          <li class="text-item"><div class="label-col"><span class="label">Sostenibilidad</span></div><div class="text-col"><p class="display-s reveal">Nuestro compromiso va desde los ingredientes que elegimos hasta las prácticas que aplicamos.</p></div></li>
+          <li class="text-item"><div class="label-col"><span class="label">Oficio</span></div><div class="text-col"><p class="display-s reveal">Cada plato es una obra, hecha con atención al detalle, de la selección a la presentación.</p></div></li>
+          <li class="text-item"><div class="label-col"><span class="label">Experiencia</span></div><div class="text-col"><p class="display-s reveal">No solo una comida: una experiencia memorable que deleita los sentidos.</p></div></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER: oscuro, enlaces en columnas, CTA y wordmark -->
+  <footer class="footer" id="contacto">
+    <div class="container footer-grid">
+      <div class="f-col f-first">
+        <a class="roll" href="#"><span>Guía de estilo</span><span>Guía de estilo</span></a>
+        <a class="roll" href="#"><span>Licencias</span><span>Licencias</span></a>
+        <a class="roll" href="#"><span>Cambios</span><span>Cambios</span></a>
+      </div>
+      <div class="f-col">
+        <span class="f-title">Encuéntranos</span>
+        <p>Calle Ejemplo 132<br>Ciudad 00000<br>País</p>
+      </div>
+      <div class="f-col">
+        <span class="f-title">Contacto</span>
+        <a class="roll" href="mailto:hola@marca.com"><span>Escríbenos</span><span>Escríbenos</span></a>
+        <a class="roll" href="tel:+0000000000"><span>Llámanos</span><span>Llámanos</span></a>
+      </div>
+      <a class="f-col f-credit" href="#">Hecho con ♥</a>
+    </div>
+
+    <div class="container footer-cta">
+      <h2 class="display-l">Una mezcla contemporánea<br>de tradiciones culinarias<br>inspirada en el norte</h2>
+      <a class="btn plain" href="#">Reservar mesa</a>
+    </div>
+
+    <div class="marquee marquee--footer" aria-hidden="true">
+      <div class="marquee-track"><span>Marca</span><span>Marca</span><span>Marca</span><span>Marca</span></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="script.js?v=2"></script>
+</body>
+</html>

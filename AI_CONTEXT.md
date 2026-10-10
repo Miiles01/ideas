@@ -22,7 +22,9 @@ Este índice está diseñado para que una IA localice rápidamente el código ad
   - **Tags**: Sidebar, Menu, Vanilla JS, CSS Animations.
 
 ### 📄 Plantillas (Templates & Pages)
-*(Ej: Sitios completos, Landing Pages. Vacío por ahora)*
+- **Amber (landing editorial con scroll animado)**: [`templates/amber/`](templates/amber/index.html)
+  - **Descripción**: Landing completa inspirada en amber-template.webflow.io. Hero con wordmark gigante en marquee, párrafos que se encienden con el scroll, imágenes a todo el ancho con parallax, splits 2:3, menú con tabs y footer oscuro. Preloader, smooth scroll (Lenis), animaciones de entrada de texto, menú móvil a pantalla completa. Paleta crema `#faf6f0` / `#282828` / `#93876e`, Belleza + Hanken Grotesk. HTML/CSS/JS Vanilla (GSAP + ScrollTrigger + Lenis por CDN). Tokens en `:root` de `styles.css`; más detalle en su `README.md`.
+  - **Tags**: Landing, Editorial, Parallax, Smooth Scroll, GSAP, Mobile-first, Restaurante.
 
 ## 🎬 Skills de Animación (obligatorio al diseñar sitios web)
 
