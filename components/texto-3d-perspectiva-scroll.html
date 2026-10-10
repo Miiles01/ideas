@@ -1,0 +1,149 @@
+<!doctype html>
+<!--
+  Texto 3D en perspectiva con scroll (mwg_effect053)
+
+  Descripción: sección fija (pin) a pantalla completa con un párrafo grande centrado.
+  Al hacer scroll, cada línea gira sobre su eje Y como la cara de un cubo
+  (rotationY 0 → -90) mientras el siguiente párrafo entra girando desde 90 → 0,
+  escalonado línea por línea. El giro va atado al scroll (scrub).
+
+  Origen: home de Miiles (miiles.app), sección "Unifica tus ideas en un solo lugar /
+  Un espacio para conectar y co-crear sin límites". Basado en el efecto 053 de
+  Made With GSAP. Retirado del rediseño del home (2026-10-10) y guardado aquí.
+
+  Uso:
+  - Solo escritorio (min-width: 768px). En móvil se muestra el primer párrafo estático.
+  - Agrega más <p class="paragraphs"> para encadenar más caras.
+  - Respeta prefers-reduced-motion: sin giro, solo el primer párrafo.
+  - Dependencias: GSAP 3.13+ (ScrollTrigger + SplitText, gratuitos desde 3.13).
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Texto 3D en perspectiva con scroll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: "Manrope", system-ui, sans-serif; background: #fff; color: #000; }
+
+    .spacer {
+      height: 70vh;
+      display: grid;
+      place-items: center;
+      color: #9499ae;
+      font-weight: 300;
+    }
+
+    /* Efecto */
+    .mwg_effect053 { width: 100%; }
+    .mwg_effect053 .pin-height { height: 300vh; }
+    .mwg_effect053 .container {
+      height: 100vh;
+      perspective: 300vw;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .mwg_effect053 .paragraphs {
+      grid-area: 1 / 1;
+      margin: 0 auto;
+      width: 75%;
+      font-size: max(22px, 5.5vw);
+      font-weight: 500;
+      line-height: 1.1;
+      text-align: center;
+      transform-style: preserve-3d;
+    }
+    .mwg_effect053 .line { transform-style: preserve-3d; }
+    .mwg_effect053 .line-inner {
+      display: inline-block;
+      transform: translate3d(0, 0, 33vw);
+      backface-visibility: hidden;
+    }
+
+    /* Móvil o movimiento reducido: solo el primer párrafo, sin pin */
+    @media (max-width: 767px), (prefers-reduced-motion: reduce) {
+      .mwg_effect053 .pin-height { height: auto; }
+      .mwg_effect053 .container { height: auto; padding: 20vh 1.5rem; }
+      .mwg_effect053 .paragraphs { width: 100%; }
+      .mwg_effect053 .paragraphs + .paragraphs { display: none; }
+      .mwg_effect053 .line-inner { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="spacer">Haz scroll</div>
+
+  <section class="mwg_effect053" aria-label="Unifica tus ideas en un solo lugar y empieza a crear">
+    <div class="pin-height">
+      <div class="container">
+        <p class="paragraphs">Unifica tus ideas<br />en un solo lugar<br />y empieza a crear</p>
+        <p class="paragraphs" aria-hidden="true">Un espacio para<br />conectar y co-crear<br />sin límites</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="spacer">Fin</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    function initEffect053(root) {
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        const pinHeight = root.querySelector(".pin-height");
+        const container = root.querySelector(".container");
+        const paragraphs = root.querySelectorAll(".paragraphs");
+        if (!pinHeight || !container || paragraphs.length === 0) return;
+
+        // Cada línea envuelta en .line-inner para empujarla hacia la cámara (translateZ)
+        const splits = Array.from(paragraphs).map((p) => {
+          const split = SplitText.create(p, { type: "lines", linesClass: "line" });
+          split.lines.forEach((line) => {
+            line.innerHTML = `<div class="line-inner">${line.innerHTML}</div>`;
+          });
+          return split;
+        });
+
+        // Los párrafos siguientes arrancan de perfil (ocultos)
+        splits.forEach((split, i) => {
+          if (i > 0) gsap.set(split.lines, { rotationY: 90 });
+        });
+
+        ScrollTrigger.create({
+          trigger: pinHeight,
+          start: "top top",
+          end: "bottom bottom",
+          pin: container,
+        });
+
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: pinHeight, start: "top top", end: "bottom bottom", scrub: true },
+        });
+
+        splits.forEach((split, i) => {
+          const next = splits[i + 1];
+          if (!next) return;
+          tl.to(split.lines, { rotationY: -90, stagger: 0.07, duration: 1, ease: "back.inOut(1.5)" });
+          tl.to(next.lines, { rotationY: 0, stagger: 0.07, duration: 1, ease: "back.inOut(1.5)" }, "<");
+        });
+
+        return () => splits.forEach((s) => s.revert());
+      });
+
+      return mm;
+    }
+
+    document.fonts.ready.then(() => {
+      document.querySelectorAll(".mwg_effect053").forEach(initEffect053);
+    });
+  </script>
+</body>
+</html>

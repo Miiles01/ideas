@@ -20,6 +20,9 @@ Este índice está diseñado para que una IA localice rápidamente el código ad
 - **Menú MOSS (Sidebar animado)**: [`components/menu-moss-demo.html`](components/menu-moss-demo.html)
   - **Descripción**: Un menú lateral completo estilo MOSS. Animaciones suaves `cubic-bezier`, overlay oscuro y botón hamburguesa circular fijo. Tipografía Manrope.
   - **Tags**: Sidebar, Menu, Vanilla JS, CSS Animations.
+- **Texto 3D en perspectiva con scroll**: [`components/texto-3d-perspectiva-scroll.html`](components/texto-3d-perspectiva-scroll.html)
+  - **Descripción**: Sección fija a pantalla completa con un párrafo grande centrado. Al hacer scroll cada línea gira sobre su eje Y como la cara de un cubo y el siguiente párrafo entra girando, escalonado línea por línea (efecto 053 de Made With GSAP). Venía del home de Miiles ("Unifica tus ideas en un solo lugar"). Solo escritorio; en móvil y con movimiento reducido queda el primer párrafo estático. Manrope.
+  - **Tags**: Scroll, 3D, GSAP, ScrollTrigger, SplitText, Pin, Landing, Vanilla JS.
 
 ### 📄 Plantillas (Templates & Pages)
 - **Amber (landing editorial con scroll animado)**: [`templates/amber/`](templates/amber/index.html)
