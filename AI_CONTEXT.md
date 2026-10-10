@@ -23,6 +23,9 @@ Este índice está diseñado para que una IA localice rápidamente el código ad
 - **Texto 3D en perspectiva con scroll**: [`components/texto-3d-perspectiva-scroll.html`](components/texto-3d-perspectiva-scroll.html)
   - **Descripción**: Sección fija a pantalla completa con un párrafo grande centrado. Al hacer scroll cada línea gira sobre su eje Y como la cara de un cubo y el siguiente párrafo entra girando, escalonado línea por línea (efecto 053 de Made With GSAP). Venía del home de Miiles ("Unifica tus ideas en un solo lugar"). Solo escritorio; en móvil y con movimiento reducido queda el primer párrafo estático. Manrope.
   - **Tags**: Scroll, 3D, GSAP, ScrollTrigger, SplitText, Pin, Landing, Vanilla JS.
+- **Texto sobre curva con scroll**: [`components/texto-curvo-scroll.html`](components/texto-curvo-scroll.html)
+  - **Descripción**: Sección fija muy alta con un SVG gigante y una curva ondulada. Al hacer scroll la frase se escribe letra por letra sobre la curva (textPath) y la cámara (viewBox) sigue la punta del texto con un quickTo suave (efecto 059 de Made With GSAP). Venía del home de Miiles ("Es horaaaaaa de crearrrrrrrrr"). Solo escritorio; en móvil y con movimiento reducido se muestra la frase como título estático. Manrope.
+  - **Tags**: Scroll, SVG, textPath, GSAP, ScrollTrigger, Pin, Landing, Cierre, Vanilla JS.
 
 ### 📄 Plantillas (Templates & Pages)
 - **Amber (landing editorial con scroll animado)**: [`templates/amber/`](templates/amber/index.html)

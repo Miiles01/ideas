@@ -1,0 +1,186 @@
+<!doctype html>
+<!--
+  Texto sobre curva que se escribe con el scroll (mwg_effect059)
+
+  Descripción: sección fija (pin) muy alta (500vh). Un SVG gigante con una curva
+  ondulada; al hacer scroll el texto se va escribiendo letra por letra sobre la
+  curva (textPath) y la "cámara" (viewBox del SVG) sigue la punta del texto con un
+  quickTo suave, como si la frase avanzara por el camino.
+
+  Origen: home de Miiles (miiles.app), frase "Es horaaaaaa de crearrrrrrrrr"
+  (las letras repetidas alargan la curva a propósito). Basado en el efecto 059 de
+  Made With GSAP. Retirado del rediseño del home (2026-10-10) y guardado aquí.
+
+  Uso:
+  - Cambia la frase en data-text del <textPath>.
+  - Solo escritorio (min-width: 768px). En móvil y con movimiento reducido se
+    muestra la frase completa como título estático.
+  - Dependencias: GSAP 3.13+ (ScrollTrigger).
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Texto sobre curva con scroll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: "Manrope", system-ui, sans-serif; background: #fff; color: #121212; overflow-x: hidden; }
+
+    .spacer {
+      height: 70vh;
+      display: grid;
+      place-items: center;
+      color: #9499ae;
+      font-weight: 300;
+    }
+
+    /* Versión estática (móvil / movimiento reducido) */
+    .curve-fallback {
+      display: none;
+      margin: 0;
+      padding: 20vh 1.5rem;
+      font-size: clamp(40px, 12vw, 72px);
+      font-weight: 500;
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    /* Efecto */
+    .mwg_effect059 { position: relative; background: #fff; color: #121212; }
+    .mwg_effect059 .pin-height { height: 500vh; }
+    .mwg_effect059 .mwg-container {
+      position: relative;
+      width: 100vw;
+      max-width: 100vw;
+      height: 100vh;
+      overflow: visible;
+    }
+    .mwg_effect059 svg {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      display: block;
+      width: auto;
+      height: 80vh;
+      overflow: visible;
+      transform: translate(0, -50%);
+    }
+    .mwg_effect059 text {
+      fill: #000;
+      font-family: "Manrope", sans-serif;
+      font-weight: 500;
+    }
+
+    @media (max-width: 767px), (prefers-reduced-motion: reduce) {
+      .mwg_effect059 { display: none; }
+      .curve-fallback { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="spacer">Haz scroll</div>
+
+  <section class="mwg_effect059" aria-label="Es hora de crear">
+    <div class="pin-height">
+      <div class="mwg-container">
+        <svg id="mysvg" fill="none" width="3898" height="891" viewBox="0 0 3898 891" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path id="mypath" d="M0.398438 611.016C175.398 377.517 857.398 -285.484 1461.4 139.638C1911.53 456.46 2114.4 805.516 2679.4 611.016C3088.4 470.219 3704.54 -33.3124 4354.9 781.516C4700.9 1215.02 5305.6 1466.52 6108.4 328.516" />
+          <text>
+            <textPath id="textpath" href="#mypath" text-anchor="start" font-size="260" data-text="Es horaaaaaa de crearrrrrrrrr"></textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
+  <h2 class="curve-fallback">Es hora de crear</h2>
+
+  <div class="spacer">Fin</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initEffect059(root) {
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        const pinHeight = root.querySelector(".pin-height");
+        const container = root.querySelector(".mwg-container");
+        const svg = root.querySelector("svg");
+        const path = root.querySelector("path");
+        const tp = root.querySelector("textPath");
+        if (!pinHeight || !container || !svg || !path || !tp) return;
+
+        const vbW = 3898;
+        const vbH = 891;
+        svg.style.aspectRatio = `${vbW} / ${vbH}`;
+
+        // La "cámara": se mueve el viewBox para seguir la punta del texto
+        const position = { x: 0, y: 0 };
+        const updateViewBox = () => svg.setAttribute("viewBox", `${position.x} ${position.y} ${vbW} ${vbH}`);
+        const tweenOpts = { duration: 0.2, ease: "power1", onUpdate: updateViewBox };
+        const xTo = gsap.quickTo(position, "x", tweenOpts);
+        const yTo = gsap.quickTo(position, "y", tweenOpts);
+
+        const str = (tp.getAttribute("data-text") || "").trim();
+        const chars = str.split("");
+
+        // Largo real del texto para muestrear la curva solo hasta donde llega
+        tp.textContent = str;
+        const textLen = tp.getComputedTextLength() || 1500;
+        tp.textContent = "";
+
+        const steps = 1000;
+        const points = [];
+        for (let i = 0; i < steps; i++) {
+          const p = path.getPointAtLength((i / (steps - 1)) * textLen);
+          points.push({ x: p.x, y: p.y });
+        }
+
+        const cameraFor = (p) => {
+          const rect = container.getBoundingClientRect();
+          const svgRect = svg.getBoundingClientRect();
+          const scale = svgRect.width > 0 ? rect.width / svgRect.width : 0.33;
+          return { x: p.x - (vbW * scale) / 2, y: p.y - vbH / 2 - 60 };
+        };
+
+        // Posición inicial para que no salte al empezar
+        const start = cameraFor(points[0]);
+        position.x = start.x;
+        position.y = start.y;
+        updateViewBox();
+
+        const st = ScrollTrigger.create({
+          trigger: pinHeight,
+          start: "top top",
+          end: "bottom bottom",
+          pin: container,
+          scrub: true,
+          onUpdate: (self) => {
+            const p = points[Math.floor(self.progress * (points.length - 1))];
+            if (p) {
+              const cam = cameraFor(p);
+              xTo(cam.x);
+              yTo(cam.y);
+            }
+            const next = chars.slice(0, Math.floor(self.progress * chars.length)).join("");
+            if (tp.textContent !== next) tp.textContent = next;
+          },
+        });
+
+        return () => st.kill();
+      });
+
+      return mm;
+    }
+
+    document.fonts.ready.then(() => {
+      document.querySelectorAll(".mwg_effect059").forEach(initEffect059);
+    });
+  </script>
+</body>
+</html>
